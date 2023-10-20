@@ -2,16 +2,29 @@ const { Car } = require("../models")
 const ApiError = require("../utils/apiError")
 
 const createCar = async (req, res, next) => {
-	const { name, price, imageUrl, capacity } = req.body
+	const { name, price, capacity } = req.body
 
 	try {
-		const newCar = await Car.create({
+		const file = req.file
+
+		const createCarPayload = {
 			name,
 			price,
-			imageUrl,
 			capacity,
-      userId: req.user.id
-		})
+			userId: req.user.id,
+		}
+
+		if (file) {
+			const split = file.originalname.split(".")
+			const extension = split[split.length - 1]
+
+			const uploadedImage = await imagekit.upload({
+				file: file.buffer,
+				fileName: `IMG-${Date.now()}.${extension}`,
+			})
+			createCarPayload.imageUrl = uploadedImage.url
+		}
+		const newCar = await Car.create(createCarPayload)
 
 		res.status(200).json({
 			status: "Success",
@@ -50,7 +63,7 @@ const findCarById = async (req, res, next) => {
 			include: ["User"],
 		})
 
-    if (!car) {
+		if (!car) {
 			return next(new ApiError("Car id tersebut gak ada", 404))
 		}
 
@@ -66,9 +79,9 @@ const findCarById = async (req, res, next) => {
 }
 
 const updateCar = async (req, res, next) => {
-	const { name, price, imageUrl, capacity } = req.body
+	const { name, price, capacity } = req.body
 	try {
-    const car = await Car.findOne({
+		const car = await Car.findOne({
 			where: {
 				id: req.params.id,
 			},
@@ -78,20 +91,31 @@ const updateCar = async (req, res, next) => {
 			return next(new ApiError("Car id tersebut gak ada", 404))
 		}
 
-		await Car.update(
-			{
-				name,
-				price,
-				imageUrl,
-				capacity,
-        userId: req.user.id
+		const file = req.file
+
+		const updateCarPayload = {
+			name,
+			price,
+			capacity,
+			userId: req.user.id,
+		}
+
+		if (file) {
+			const split = file.originalname.split(".")
+			const extension = split[split.length - 1]
+
+			const uploadedImage = await imagekit.upload({
+				file: file.buffer,
+				fileName: `IMG-${Date.now()}.${extension}`,
+			})
+			updateCarPayload.imageUrl = uploadedImage.url
+		}
+
+		await Car.update(updateCarPayload, {
+			where: {
+				id: req.params.id,
 			},
-			{
-				where: {
-					id: req.params.id,
-				},
-			}
-		)
+		})
 
 		res.status(200).json({
 			status: "Success",

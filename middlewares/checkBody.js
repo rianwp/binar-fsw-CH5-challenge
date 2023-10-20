@@ -9,9 +9,7 @@ const checkBody = (requiredProps) => {
 			}
 		}
 		if (undefinedProps.length > 0) {
-			return next(
-				new ApiError(`Body harus memiliki ${undefinedProps.toString()}`, 400)
-			)
+			return next(new ApiError(`${undefinedProps.toString()} harus ada`, 400))
 		}
 		next()
 	}

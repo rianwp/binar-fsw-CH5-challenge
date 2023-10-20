@@ -1,0 +1,14 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Challenge 5",
+		"description": "ini challenge 5",
+		"version": "1.0.0"
+	},
+	"tags": [
+		{
+			"name": "Users",
+			"description": "ini API untuk USERS resources"
+		}
+	]
+}

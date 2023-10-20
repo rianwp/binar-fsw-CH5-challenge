@@ -5,7 +5,7 @@ const checkAccountAndRole = (roles) => {
 		if (!roles.include(req.user.role) || req.user.id != req.params.id) {
 			return next(
 				new ApiError(
-					`kamu bukan ${roles} atau kamu bukan pemilik akun jadi tidak bisa akses`,
+					`kamu bukan ${roles.toString()} atau kamu bukan pemilik akun jadi tidak bisa akses`,
 					401
 				)
 			)

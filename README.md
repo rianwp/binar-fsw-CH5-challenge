@@ -2,7 +2,7 @@
 
 ### Halaman API Documentation
 
-`/api/v1/docs`
+`/api-docs`
 
 ### Inisialisasi Project
 
@@ -20,13 +20,21 @@ npm install
 
 3. Buat file `.env` dan copy env variable dari file `.env.example`
 
-4. Menjalankan server
+4. Inisialisasi database
+
+```
+npx sequelize db:create
+npx sequelize db:migrate
+npx sequelize db:seed:all
+```
+
+5. Menjalankan server
 
 ```
 npm run dev
 ```
 
-5. Mengakses sesuai PORT yang ditentukan, defaultnya `localhost:3000`
+6. Mengakses sesuai PORT yang ditentukan, defaultnya `localhost:3000`
 
 ### Email dan Password superadmin
 
