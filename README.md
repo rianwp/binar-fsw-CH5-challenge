@@ -1,6 +1,6 @@
 # Challenge 5
 
-### Halaman Open API Documentation
+### Halaman API Documentation
 
 `localhost:3000/api/v1/docs`
 
