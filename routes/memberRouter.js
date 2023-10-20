@@ -1,40 +1,40 @@
 const router = require("express").Router()
 
-const User = require("../controllers/userController")
+const Member = require("../controllers/memberController")
 
 const authenticate = require("../middlewares/authenticate")
 const checkAccountOwnership = require("../middlewares/checkAccountOwnership")
 const checkAccountAndRole = require("../middlewares/checkAccountandRole")
 const checkRole = require("../middlewares/checkRole")
 
-// Untuk mengakses delete dan get by id user,
-// harus melakukan login dengan user tersebut atau
+// Untuk mengakses delete dan get by id member,
+// harus melakukan login dengan member tersebut atau
 // role yang lebih tinggi (superadmin, admin)
 
-// Untuk mengakses get all data dari admin atau user,
+// Untuk mengakses get all data dari admin atau member,
 // harus memiliki role yang lebih tinggi
-// (untuk mengakses all data dari user harus memiliki role admin atau superadmin)
+// (untuk mengakses all data dari member harus memiliki role admin atau superadmin)
 
 router.get(
 	"/",
 	authenticate,
 	checkRole(["superadmin", "admin"]),
-	User.findUsers
+	Member.findMembers
 )
 router.get(
 	"/:id",
 	authenticate,
 	checkAccountAndRole(["superadmin", "admin"]),
-	User.findUserById
+	Member.findMemberById
 )
 
-// Untuk api edit user hanya bisa dilakukan oleh user yang memiliki id tersebut
-router.patch("/:id", authenticate, checkAccountOwnership, User.updateUser)
+// Untuk api edit member hanya bisa dilakukan oleh member yang memiliki id tersebut
+router.patch("/:id", authenticate, checkAccountOwnership, Member.updateMember)
 router.delete(
 	"/:id",
 	authenticate,
 	checkAccountAndRole(["superadmin", "admin"]),
-	User.deleteUser
+	Member.deleteMember
 )
 
 module.exports = router

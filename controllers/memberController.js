@@ -1,16 +1,18 @@
 const { User } = require("../models")
 const ApiError = require("../utils/apiError")
 
-const findUsers = async (req, res, next) => {
+const findMembers = async (req, res, next) => {
 	try {
-		const users = await User.findAll({
-      include: ["Cars"],
-    })
+		const members = await User.findAll({
+			where: {
+				role: "member"
+			},
+		})
 
 		res.status(200).json({
 			status: "Success",
 			data: {
-				users,
+				members,
 			},
 		})
 	} catch (err) {
@@ -18,23 +20,23 @@ const findUsers = async (req, res, next) => {
 	}
 }
 
-const findUserById = async (req, res, next) => {
+const findMemberById = async (req, res, next) => {
 	try {
-		const user = await User.findOne({
+		const member = await User.findOne({
 			where: {
 				id: req.params.id,
+				role: "member"
 			},
-      include: ["Cars"],
 		})
 
-    if (!user) {
-			return next(new ApiError("User id tersebut gak ada", 404))
+		if (!member) {
+			return next(new ApiError("Member id tersebut gak ada", 404))
 		}
 
 		res.status(200).json({
 			status: "Success",
 			data: {
-				user,
+				member,
 			},
 		})
 	} catch (err) {
@@ -42,17 +44,18 @@ const findUserById = async (req, res, next) => {
 	}
 }
 
-const updateUser = async (req, res, next) => {
+const updateMember = async (req, res, next) => {
 	const { name, address } = req.body
 	try {
-    const user = await User.findOne({
+		const member = await User.findOne({
 			where: {
 				id: req.params.id,
+				role: "member"
 			},
 		})
 
-		if (!user) {
-			return next(new ApiError("User id tersebut gak ada", 404))
+		if (!member) {
+			return next(new ApiError("Member id tersebut gak ada", 404))
 		}
 
 		await User.update(
@@ -63,40 +66,43 @@ const updateUser = async (req, res, next) => {
 			{
 				where: {
 					id: req.params.id,
+					role: "member"
 				},
 			}
 		)
 
 		res.status(200).json({
 			status: "Success",
-			message: "sukses update user",
+			message: "sukses update member",
 		})
 	} catch (err) {
 		next(new ApiError(err.message, 400))
 	}
 }
 
-const deleteUser = async (req, res, next) => {
+const deleteMember = async (req, res, next) => {
 	try {
-		const user = await User.findOne({
+		const member = await User.findOne({
 			where: {
 				id: req.params.id,
+				role: "member"
 			},
 		})
 
-		if (!user) {
-			return next(new ApiError("User id tersebut gak ada", 404))
+		if (!member) {
+			return next(new ApiError("Member id tersebut gak ada", 404))
 		}
 
 		await User.destroy({
 			where: {
 				id: req.params.id,
+				role: "member"
 			},
 		})
 
 		res.status(200).json({
 			status: "Success",
-			message: "sukses delete user",
+			message: "sukses delete member",
 		})
 	} catch (err) {
 		next(new ApiError(err.message, 400))
@@ -104,8 +110,8 @@ const deleteUser = async (req, res, next) => {
 }
 
 module.exports = {
-	findUsers,
-	findUserById,
-	updateUser,
-	deleteUser,
+	findMembers,
+	findMemberById,
+	updateMember,
+	deleteMember,
 }

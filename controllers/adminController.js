@@ -147,6 +147,7 @@ const deleteAdmin = async (req, res, next) => {
 		await User.destroy({
 			where: {
 				id: req.params.id,
+        role: "admin",
 			},
 		})
 

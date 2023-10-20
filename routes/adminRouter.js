@@ -11,7 +11,7 @@ const checkRole = require("../middlewares/checkRole")
 // harus melakukan login dengan admin tersebut atau
 // role yang lebih tinggi (superadmin)
 
-// Untuk mengakses get all data dari admin atau user,
+// Untuk mengakses get all data dari admin atau member,
 // harus memiliki role yang lebih tinggi
 // (untuk mengakses all data dari admin harus memiliki role superadmin)
 

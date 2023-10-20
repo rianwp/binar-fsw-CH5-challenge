@@ -7,8 +7,8 @@
 	},
 	"tags": [
 		{
-			"name": "Users",
-			"description": "ini API untuk USERS resources"
+			"name": "Members",
+			"description": "ini API untuk MEMBERS resources"
 		}
 	]
 }
