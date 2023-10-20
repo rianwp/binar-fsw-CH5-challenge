@@ -7,7 +7,6 @@ const checkBody = require("../middlewares/checkBody")
 router.post(
 	"/register",
 	checkBody(["name", "email", "password"]),
-	authenticate,
 	Auth.register
 )
 router.post("/login", Auth.login)
