@@ -7,6 +7,14 @@ const checkAccountAndRole = require("../middlewares/checkAccountandRole")
 const checkBody = require("../middlewares/checkBody")
 const checkRole = require("../middlewares/checkRole")
 
+// Untuk mengakses edit, delete dan get by id admin,
+// harus melakukan login dengan admin tersebut atau
+// role yang lebih tinggi (superadmin)
+
+// Untuk mengakses get all data dari admin atau user,
+// harus memiliki role yang lebih tinggi
+// (untuk mengakses all data dari admin harus memiliki role superadmin)
+
 router.post(
 	"/",
 	authenticate,
