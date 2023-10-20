@@ -2,7 +2,7 @@
 
 ### Halaman API Documentation
 
-`localhost:3000/api/v1/docs`
+`/api/v1/docs`
 
 ### Inisialisasi Project
 
