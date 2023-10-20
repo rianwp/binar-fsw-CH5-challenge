@@ -23,7 +23,7 @@ module.exports = {
 				{
 					email: "superadmin@mail.com",
 					password:
-						"$2a$12$i.coFAf.4vGGrLhUV/26/uV2/Ce.OmwiFcP0pDmuLqVMmlcgkbV2K",
+						"$2a$12$i.coFAf.4vGGrLhUV/26/uV2/Ce.OmwiFcP0pDmuLqVMmlcgkbV2K", // password: superadmin
 					userId: users[0].id,
 					createdAt: new Date(),
 					updatedAt: new Date(),
