@@ -18,6 +18,12 @@ module.exports = async (req, res, next) => {
 			include: ["Auth"],
 		})
 
+		if (!user) {
+			return next(
+				new ApiError("User dengan token login ini tidak ditemukan", 401)
+			)
+		}
+
 		req.user = user
 		next()
 	} catch (err) {

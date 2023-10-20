@@ -14,15 +14,15 @@ const register = async (req, res, next) => {
 		})
 
 		if (user) {
-			next(new ApiError("User email already taken", 400))
+			return next(new ApiError("User email already taken", 400))
 		}
 
 		if (password <= 8) {
-			next(new ApiError("Minimum password must be 8 character", 400))
+			return next(new ApiError("Minimum password must be 8 character", 400))
 		}
 
 		if (password !== confirmPassword) {
-			next(new ApiError("password does not match", 400))
+			return next(new ApiError("password does not match", 400))
 		}
 
 		const saltRounds = 10
@@ -79,7 +79,7 @@ const login = async (req, res, next) => {
 				data: token,
 			})
 		} else {
-			next(new ApiError("wrong password atau user gak ada", 400))
+			return next(new ApiError("wrong password atau user gak ada", 400))
 		}
 	} catch (err) {
 		next(new ApiError(err.message, 500))

@@ -16,8 +16,15 @@ module.exports = (sequelize, DataTypes) => {
 			})
 			User.hasMany(models.Car, {
 				foreignKey: {
-					name: "userId",
+					name: "createdBy",
 				},
+				as: "carsCreated",
+			})
+			User.hasMany(models.Car, {
+				foreignKey: {
+					name: "updatedBy",
+				},
+				as: "carsUpdated",
 			})
 		}
 	}

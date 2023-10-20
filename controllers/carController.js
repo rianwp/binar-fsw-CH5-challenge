@@ -11,7 +11,7 @@ const createCar = async (req, res, next) => {
 			name,
 			price,
 			capacity,
-			userId: req.user.id,
+			createdBy: req.user.id,
 		}
 
 		if (file) {
@@ -40,7 +40,7 @@ const createCar = async (req, res, next) => {
 const findCars = async (req, res, next) => {
 	try {
 		const cars = await Car.findAll({
-			include: ["User"],
+			include: ["createdByUser", "updatedByUser"],
 		})
 
 		res.status(200).json({
@@ -60,7 +60,7 @@ const findCarById = async (req, res, next) => {
 			where: {
 				id: req.params.id,
 			},
-			include: ["User"],
+			include: ["createdByUser", "updatedByUser"],
 		})
 
 		if (!car) {
@@ -97,7 +97,7 @@ const updateCar = async (req, res, next) => {
 			name,
 			price,
 			capacity,
-			userId: req.user.id,
+			updatedBy: req.user.id,
 		}
 
 		if (file) {

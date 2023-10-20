@@ -1,4 +1,5 @@
-const { User } = require("../models")
+const bcrypt = require("bcrypt")
+const { User, Auth } = require("../models")
 const ApiError = require("../utils/apiError")
 
 const createAdmin = async (req, res, next) => {
@@ -56,7 +57,7 @@ const findAdmins = async (req, res, next) => {
 			where: {
 				role: "admin",
 			},
-			include: ["Cars"],
+			include: ["carsCreated", "carsUpdated", "Auth"],
 		})
 
 		res.status(200).json({
@@ -77,7 +78,7 @@ const findAdminById = async (req, res, next) => {
 				id: req.params.id,
 				role: "admin",
 			},
-			include: ["Cars"],
+			include: ["carsCreated", "carsUpdated", "Auth"],
 		})
 
 		if (!admin) {
@@ -147,7 +148,13 @@ const deleteAdmin = async (req, res, next) => {
 		await User.destroy({
 			where: {
 				id: req.params.id,
-        role: "admin",
+				role: "admin",
+			},
+		})
+
+		await Auth.destroy({
+			where: {
+				userId: req.params.id,
 			},
 		})
 

@@ -1,12 +1,13 @@
-const { User } = require("../models")
+const { User, Auth } = require("../models")
 const ApiError = require("../utils/apiError")
 
 const findMembers = async (req, res, next) => {
 	try {
 		const members = await User.findAll({
 			where: {
-				role: "member"
+				role: "member",
 			},
+			include: ["Auth"],
 		})
 
 		res.status(200).json({
@@ -25,8 +26,9 @@ const findMemberById = async (req, res, next) => {
 		const member = await User.findOne({
 			where: {
 				id: req.params.id,
-				role: "member"
+				role: "member",
 			},
+			include: ["Auth"],
 		})
 
 		if (!member) {
@@ -50,7 +52,7 @@ const updateMember = async (req, res, next) => {
 		const member = await User.findOne({
 			where: {
 				id: req.params.id,
-				role: "member"
+				role: "member",
 			},
 		})
 
@@ -66,7 +68,7 @@ const updateMember = async (req, res, next) => {
 			{
 				where: {
 					id: req.params.id,
-					role: "member"
+					role: "member",
 				},
 			}
 		)
@@ -85,7 +87,7 @@ const deleteMember = async (req, res, next) => {
 		const member = await User.findOne({
 			where: {
 				id: req.params.id,
-				role: "member"
+				role: "member",
 			},
 		})
 
@@ -96,7 +98,13 @@ const deleteMember = async (req, res, next) => {
 		await User.destroy({
 			where: {
 				id: req.params.id,
-				role: "member"
+				role: "member",
+			},
+		})
+
+		await Auth.destroy({
+			where: {
+				userId: req.params.id,
 			},
 		})
 

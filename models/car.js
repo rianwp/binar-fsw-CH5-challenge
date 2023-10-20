@@ -11,8 +11,15 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Car.belongsTo(models.User, {
 				foreignKey: {
-					name: "userId",
+					name: "createdBy",
 				},
+				as: "createdByUser",
+			})
+			Car.belongsTo(models.User, {
+				foreignKey: {
+					name: "updatedBy",
+				},
+				as: "updatedByUser",
 			})
 		}
 	}
@@ -26,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue:
 					"https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
 			},
-			userId: DataTypes.INTEGER,
+			createdBy: DataTypes.INTEGER,
+			updatedBy: DataTypes.INTEGER,
 		},
 		{
 			sequelize,
