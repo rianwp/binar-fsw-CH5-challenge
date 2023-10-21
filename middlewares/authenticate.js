@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
 
 		if (!user) {
 			return next(
-				new ApiError("User dengan token login ini tidak ditemukan", 401)
+				new ApiError("User dengan token login ini tidak ditemukan", 404)
 			)
 		}
 

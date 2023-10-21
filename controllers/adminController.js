@@ -41,9 +41,11 @@ const createAdmin = async (req, res, next) => {
 		res.status(201).json({
 			status: "Success",
 			data: {
-				...newAdmin,
-				email,
-				password: hashedPassword,
+				newAdmin: {
+					...newAdmin.dataValues,
+					email,
+					password: hashedPassword,
+				},
 			},
 		})
 	} catch (err) {

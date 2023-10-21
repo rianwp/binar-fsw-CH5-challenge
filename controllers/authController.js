@@ -41,9 +41,11 @@ const register = async (req, res, next) => {
 		res.status(201).json({
 			status: "Success",
 			data: {
-				...newUser,
-				email,
-				password: hashedPassword,
+				newUser: {
+					...newUser.dataValues,
+					email,
+					password: hashedPassword,
+				},
 			},
 		})
 	} catch (err) {
@@ -76,7 +78,9 @@ const login = async (req, res, next) => {
 			res.status(200).json({
 				status: "Success",
 				message: "Berhasil login",
-				data: token,
+				data: {
+					token,
+				},
 			})
 		} else {
 			return next(new ApiError("wrong password atau user gak ada", 400))

@@ -26,7 +26,7 @@ const createCar = async (req, res, next) => {
 		}
 		const newCar = await Car.create(createCarPayload)
 
-		res.status(200).json({
+		res.status(201).json({
 			status: "Success",
 			data: {
 				newCar,
