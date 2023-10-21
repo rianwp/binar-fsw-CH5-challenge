@@ -55,7 +55,7 @@ const findAdmins = async (req, res, next) => {
 	try {
 		const admins = await User.findAll({
 			where: {
-				role: "admin",
+				role: ["admin", "superadmin"],
 			},
 			include: ["carsCreated", "carsUpdated", "Auth"],
 		})
@@ -76,7 +76,7 @@ const findAdminById = async (req, res, next) => {
 		const admin = await User.findOne({
 			where: {
 				id: req.params.id,
-				role: "admin",
+				role: ["admin", "superadmin"],
 			},
 			include: ["carsCreated", "carsUpdated", "Auth"],
 		})
