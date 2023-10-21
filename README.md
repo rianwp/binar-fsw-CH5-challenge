@@ -1,5 +1,9 @@
 # Challenge 5
 
+### DB Diagram
+
+![db diagram](img/dbdiagram.png)
+
 ### Halaman API Documentation
 
 `/api-docs`

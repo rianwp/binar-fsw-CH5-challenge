@@ -19,7 +19,7 @@
 			"description": "ini API untuk MEMBERS resources"
 		},
 		{
-			"name": "Admin",
+			"name": "Admins",
 			"description": "ini API untuk ADMIN resources"
 		}
 	],
@@ -618,7 +618,7 @@
 					}
 				],
 				"summary": "Find Car by ID",
-				"description": "API untuk mendapat cars berdasar id",
+				"description": "API untuk mendapat car berdasar id",
 				"parameters": [
 					{
 						"name": "id",
@@ -633,7 +633,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "Sukses menampilkan car berdasar id",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -761,7 +761,7 @@
 					}
 				],
 				"summary": "Update Car by ID",
-				"description": "API untuk update cars berdasar id",
+				"description": "API untuk update car berdasar id",
 				"parameters": [
 					{
 						"name": "id",
@@ -872,7 +872,7 @@
 					}
 				],
 				"summary": "Delete Car by ID",
-				"description": "API untuk update cars berdasar id",
+				"description": "API untuk delete car berdasar id",
 				"parameters": [
 					{
 						"name": "id",
@@ -882,7 +882,7 @@
 							"type": "integer",
 							"format": "int64"
 						},
-						"description": "id car yang ingin diupdate"
+						"description": "id car yang ingin didelete"
 					}
 				],
 				"responses": {
@@ -940,6 +940,1248 @@
 										"message": {
 											"type": "string",
 											"example": "kamu bukan admin, superadmin jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admins": {
+			"post": {
+				"tags": ["Admins"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Create Admin",
+				"description": "ini API utk create admin",
+				"requestBody": {
+					"description": "ini request body utk sukses admin",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"example": "tes"
+									},
+									"password": {
+										"type": "string",
+										"example": "admin"
+									},
+									"email": {
+										"type": "string",
+										"example": "admin1@mail.com"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "admin"
+									},
+									"address": {
+										"type": "string",
+										"example": "jkt"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Sukses create admin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"newAdmin": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"example": 5
+														},
+														"name": {
+															"type": "string",
+															"example": "tes"
+														},
+														"address": {
+															"type": "string",
+															"example": "jkt"
+														},
+														"role": {
+															"type": "string",
+															"example": "admin"
+														},
+														"updatedAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T11:14:39.616Z"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T11:14:39.616Z"
+														},
+														"email": {
+															"type": "string",
+															"example": "admin1@mail.com"
+														},
+														"password": {
+															"type": "string",
+															"example": "$2b$10$JoTiukYo54aFxGoEe3Vtt.lT9mguobAA8vFasNJRTomSa4n6T6Chi"
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Salah satu property tidak terpenuhi",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "name harus ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": ["Admins"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Get All Admins",
+				"description": "API untuk mendapat all admins",
+				"responses": {
+					"200": {
+						"description": "Sukses menampilkan all admins",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"admins": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"example": 1
+															},
+															"name": {
+																"type": "string",
+																"example": "Superadmin"
+															},
+															"role": {
+																"type": "string",
+																"example": "superadmin"
+															},
+															"address": {
+																"type": "string",
+																"example": "Jakarta"
+															},
+															"createdAt": {
+																"type": "string",
+																"format": "date-time",
+																"example": "2023-10-21T04:46:56.492Z"
+															},
+															"updatedAt": {
+																"type": "string",
+																"format": "date-time",
+																"example": "2023-10-21T04:46:56.492Z"
+															},
+															"carsCreated": {
+																"type": "array",
+																"items": {
+																	"type": "object",
+																	"properties": {
+																		"id": {
+																			"type": "integer",
+																			"example": 2
+																		},
+																		"name": {
+																			"type": "string",
+																			"example": "tes"
+																		},
+																		"price": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"capacity": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"imageUrl": {
+																			"type": "string",
+																			"example": "https://tse2.mm.bing.net/th.id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180"
+																		},
+																		"createdBy": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"updatedBy": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"createdAt": {
+																			"type": "string",
+																			"format": "date-time",
+																			"example": "2023-10-21T10:38:47.806Z"
+																		},
+																		"updatedAt": {
+																			"type": "string",
+																			"format": "date-time",
+																			"example": "2023-10-21T10:48:33.215Z"
+																		}
+																	}
+																}
+															},
+															"carsUpdated": {
+																"type": "array",
+																"items": {
+																	"type": "object",
+																	"properties": {
+																		"id": {
+																			"type": "integer",
+																			"example": 2
+																		},
+																		"name": {
+																			"type": "string",
+																			"example": "tes"
+																		},
+																		"price": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"capacity": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"imageUrl": {
+																			"type": "string",
+																			"example": "https://tse2.mm.bing.net/th.id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180"
+																		},
+																		"createdBy": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"updatedBy": {
+																			"type": "integer",
+																			"example": 1
+																		},
+																		"createdAt": {
+																			"type": "string",
+																			"format": "date-time",
+																			"example": "2023-10-21T10:38:47.806Z"
+																		},
+																		"updatedAt": {
+																			"type": "string",
+																			"format": "date-time",
+																			"example": "2023-10-21T10:48:33.215Z"
+																		}
+																	}
+																}
+															},
+															"Auth": {
+																"type": "object",
+																"properties": {
+																	"id": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"email": {
+																		"type": "string",
+																		"example": "superadmin@mail.com"
+																	},
+																	"password": {
+																		"type": "string",
+																		"example": "$2a$12$i.coFAf.4vGGrLhUV/26/uV2/Ce.OmwiFcP0pDmuLqVMmlcgkbV2K"
+																	},
+																	"userId": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"createdAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T04:46:56.847Z"
+																	},
+																	"updatedAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T04:46:56.847Z"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admins/{id}": {
+			"get": {
+				"tags": ["Admins"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Find Admin by ID",
+				"description": "API untuk mendapat admin berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id admin yang ingin dtampilkan"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sukses menampilkan admin berdasar id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"admin": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"example": 1
+														},
+														"name": {
+															"type": "string",
+															"example": "Superadmin"
+														},
+														"role": {
+															"type": "string",
+															"example": "superadmin"
+														},
+														"address": {
+															"type": "string",
+															"example": "Jakarta"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T04:46:56.492Z"
+														},
+														"updatedAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T04:46:56.492Z"
+														},
+														"carsCreated": {
+															"type": "array",
+															"items": {
+																"type": "object",
+																"properties": {
+																	"id": {
+																		"type": "integer",
+																		"example": 3
+																	},
+																	"name": {
+																		"type": "string",
+																		"example": "Avanza"
+																	},
+																	"price": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"capacity": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"imageUrl": {
+																		"type": "string",
+																		"example": "https://tse2.mm.bing.net/th.id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180"
+																	},
+																	"createdBy": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"updatedBy": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"createdAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T10:47:28.542Z"
+																	},
+																	"updatedAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T10:47:28.542Z"
+																	}
+																}
+															}
+														},
+														"carsUpdated": {
+															"type": "array",
+															"items": {
+																"type": "object",
+																"properties": {
+																	"id": {
+																		"type": "integer",
+																		"example": 2
+																	},
+																	"name": {
+																		"type": "string",
+																		"example": "tes"
+																	},
+																	"price": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"capacity": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"imageUrl": {
+																		"type": "string",
+																		"example": "https://tse2.mm.bing.net/th.id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180"
+																	},
+																	"createdBy": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"updatedBy": {
+																		"type": "integer",
+																		"example": 1
+																	},
+																	"createdAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T10:38:47.806Z"
+																	},
+																	"updatedAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T10:48:33.215Z"
+																	}
+																}
+															}
+														},
+														"Auth": {
+															"type": "object",
+															"properties": {
+																"id": {
+																	"type": "integer",
+																	"example": 1
+																},
+																"email": {
+																	"type": "string",
+																	"example": "superadmin@mail.com"
+																},
+																"password": {
+																	"type": "string",
+																	"example": "$2a$12$i.coFAf.4vGGrLhUV/26/uV2/Ce.OmwiFcP0pDmuLqVMmlcgkbV2K"
+																},
+																"userId": {
+																	"type": "integer",
+																	"example": 1
+																},
+																"createdAt": {
+																	"type": "string",
+																	"format": "date-time",
+																	"example": "2023-10-21T04:46:56.847Z"
+																},
+																"updatedAt": {
+																	"type": "string",
+																	"format": "date-time",
+																	"example": "2023-10-21T04:46:56.847Z"
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Admin id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin atau pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin atau kamu bukan pemilik akun jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Admins"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Update Admin by ID",
+				"description": "API untuk update admin berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id admin yang ingin diupdate"
+					}
+				],
+				"requestBody": {
+					"description": "ini request body utk sukses admin",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"example": "tes"
+									},
+									"address": {
+										"type": "string",
+										"example": "jkt"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Sukses update admin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"message": {
+											"type": "string",
+											"example": "sukses update admin"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Admin id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin atau pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin atau kamu bukan pemilik akun jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Admins"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Delete Admin by ID",
+				"description": "API untuk delete admin berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id admin yang ingin didelete"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sukses delete admin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"message": {
+											"type": "string",
+											"example": "sukses delete admin"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Admin id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin atau pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin atau kamu bukan pemilik akun jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/members": {
+			"get": {
+				"tags": ["Members"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Get All Members",
+				"description": "API untuk mendapat all members",
+				"responses": {
+					"200": {
+						"description": "Sukses menampilkan all members",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"members": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"example": 2
+															},
+															"name": {
+																"type": "string",
+																"example": "tes"
+															},
+															"role": {
+																"type": "string",
+																"example": "member"
+															},
+															"address": {
+																"type": "string",
+																"example": ""
+															},
+															"createdAt": {
+																"type": "string",
+																"format": "date-time",
+																"example": "2023-10-21T07:22:37.777Z"
+															},
+															"updatedAt": {
+																"type": "string",
+																"format": "date-time",
+																"example": "2023-10-21T07:22:37.777Z"
+															},
+															"Auth": {
+																"type": "object",
+																"properties": {
+																	"id": {
+																		"type": "integer",
+																		"example": 2
+																	},
+																	"email": {
+																		"type": "string",
+																		"example": "tes2@mail.com"
+																	},
+																	"password": {
+																		"type": "string",
+																		"example": "$2b$10$53SlHXDExPXe57Sv.DDVweTyyPs5BNsjUR8hW8RYv9V1.9z9tsp5y"
+																	},
+																	"userId": {
+																		"type": "integer",
+																		"example": 2
+																	},
+																	"createdAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T07:22:37.848Z"
+																	},
+																	"updatedAt": {
+																		"type": "string",
+																		"format": "date-time",
+																		"example": "2023-10-21T07:22:37.848Z"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin atau admin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin,admin jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/members/{id}": {
+			"get": {
+				"tags": ["Members"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Find Member by ID",
+				"description": "API untuk mendapat member berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id member yang ingin dtampilkan"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sukses menampilkan member berdasar id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"member": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"example": 2
+														},
+														"name": {
+															"type": "string",
+															"example": "tes"
+														},
+														"role": {
+															"type": "string",
+															"example": "member"
+														},
+														"address": {
+															"type": "string",
+															"example": ""
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T07:22:37.777Z"
+														},
+														"updatedAt": {
+															"type": "string",
+															"format": "date-time",
+															"example": "2023-10-21T07:22:37.777Z"
+														},
+														"Auth": {
+															"type": "object",
+															"properties": {
+																"id": {
+																	"type": "integer",
+																	"example": 2
+																},
+																"email": {
+																	"type": "string",
+																	"example": "tes2@mail.com"
+																},
+																"password": {
+																	"type": "string",
+																	"example": "$2b$10$53SlHXDExPXe57Sv.DDVweTyyPs5BNsjUR8hW8RYv9V1.9z9tsp5y"
+																},
+																"userId": {
+																	"type": "integer",
+																	"example": 2
+																},
+																"createdAt": {
+																	"type": "string",
+																	"format": "date-time",
+																	"example": "2023-10-21T07:22:37.848Z"
+																},
+																"updatedAt": {
+																	"type": "string",
+																	"format": "date-time",
+																	"example": "2023-10-21T07:22:37.848Z"
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Member dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Member id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin, admin atau pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin,admin atau kamu bukan pemilik akun jadi tidak bisa akses"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Members"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Update Member by ID",
+				"description": "API untuk update member berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id member yang ingin diupdate"
+					}
+				],
+				"requestBody": {
+					"description": "ini request body utk sukses member",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"example": "tes"
+									},
+									"address": {
+										"type": "string",
+										"example": "jkt"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Sukses update member",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"message": {
+											"type": "string",
+											"example": "sukses update member"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Member dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Member id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan kamu bukan pemilik akun ini"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Members"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
+				"summary": "Delete Member by ID",
+				"description": "API untuk delete member berdasar id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						},
+						"description": "id member yang ingin didelete"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sukses delete member",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Success"
+										},
+										"message": {
+											"type": "string",
+											"example": "sukses delete member"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Member dengan id tersebut tidak ditemukan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "Member id tersebut gak ada"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Tidak mendapat akses karena bukan superadmin, admin atau pemilik akun",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "Failed"
+										},
+										"message": {
+											"type": "string",
+											"example": "kamu bukan superadmin,admin atau kamu bukan pemilik akun jadi tidak bisa akses"
 										}
 									}
 								}
