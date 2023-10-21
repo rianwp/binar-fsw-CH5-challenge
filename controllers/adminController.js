@@ -13,15 +13,15 @@ const createAdmin = async (req, res, next) => {
 		})
 
 		if (admin) {
-			next(new ApiError("User email already taken", 400))
+			return next(new ApiError("User email already taken", 400))
 		}
 
 		if (password <= 8) {
-			next(new ApiError("Minimum password must be 8 character", 400))
+			return next(new ApiError("Minimum password must be 8 character", 400))
 		}
 
 		if (password !== confirmPassword) {
-			next(new ApiError("password does not match", 400))
+			return next(new ApiError("password does not match", 400))
 		}
 
 		const saltRounds = 10
