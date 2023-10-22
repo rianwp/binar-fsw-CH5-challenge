@@ -226,6 +226,11 @@
 		"/auth/me": {
 			"get": {
 				"tags": ["Auth"],
+				"security": [
+					{
+						"bearerToken": []
+					}
+				],
 				"summary": "Data Current User",
 				"description": "ini API utk mendapatkan data current user",
 				"responses": {
